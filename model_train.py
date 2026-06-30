@@ -1,0 +1,32 @@
+#mode_train.py
+import pandas as pd
+import pickle
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+
+#load training data
+train_df = pd.read_csv('loan_train.csv')
+
+#feature and target
+features = ['Age','Annual_Income', 'Credit_Score', 'Loan_Amount',
+            'Employment_Years', 'Debt_To_Income_Ratio', 'Dependents']
+
+X_train = train_df[features]
+y_train = train_df['Approved']
+
+#Scale features
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+
+#Train in KNN(k=7)
+knn = KNeighborsClassifier(n_neighbors=7)
+knn.fit(X_train_scaled, y_train)
+
+#save model and scaler
+with open('knn_model.pkl', 'wb') as f:
+    pickle.dump(knn, f)
+
+with open('scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
+
+print("Model and scaler saved: knn_model.pkl, scaler.pkl")    
