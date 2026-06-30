@@ -1,4 +1,4 @@
-1. Streamlit
-2. Pandas
-3. numpy
-4. scikit-learn
+Streamlit
+Pandas
+numpy
+scikit-learn
